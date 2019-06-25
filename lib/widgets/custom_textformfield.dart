@@ -5,18 +5,22 @@ typedef String StringCallback(String input);
 class CustomTextFormField extends StatelessWidget {
   final StringCallback validator;
   final bool obscureText;
-
-  CustomTextFormField({this.validator, this.obscureText: false});
+  final TextEditingController controller;
+  final String hint;
+  CustomTextFormField(
+      {this.validator, this.obscureText: false, this.controller, this.hint});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: Colors.black,
       style: TextStyle(color: Colors.black),
+      obscureText: obscureText,
+      controller: controller,
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: 'Username',
+          hintText: hint,
           hintStyle: TextStyle(
             color: Colors.grey.shade700,
           )),

@@ -1,5 +1,8 @@
+import 'package:attendance/services/login_service.dart';
 import 'package:attendance/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
+
+LoginService loginService = LoginService();
 
 class CommonScaffold extends StatelessWidget {
   final Widget body;
@@ -7,7 +10,10 @@ class CommonScaffold extends StatelessWidget {
   final List<DrawerItem> drawerItems;
 
   CommonScaffold(
-      {@required this.body, @required this.title, @required this.drawerItems});
+      {@required this.body, @required this.title, @required this.drawerItems}) {
+    this.drawerItems.add(DrawerItem(
+        title: 'Logout', onClick: () => loginService.logout(), path: '/login'));
+  }
 
   @override
   Widget build(BuildContext context) {

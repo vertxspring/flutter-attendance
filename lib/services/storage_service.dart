@@ -9,8 +9,8 @@ class StorageService {
   }
 
   Future<User> getLoggedInUser() async {
-    await Future.delayed(Duration(milliseconds: 5000));
-    // return User("Shravan", Role.ADMIN);
+    await Future.delayed(Duration(milliseconds: 50));
+    //return User("Shravan", Role.ADMIN);
     return null;
   }
 }

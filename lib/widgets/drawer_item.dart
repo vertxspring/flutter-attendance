@@ -4,17 +4,26 @@ class DrawerItem extends StatelessWidget {
   final String title;
   final String path;
   final Icon leadingIcon;
-  DrawerItem({@required this.title, @required this.path, this.leadingIcon});
+  final VoidCallback onClick;
+  DrawerItem({@required this.title, this.path, this.leadingIcon, this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0),
-      child: ListTile(
-        title: Text(title),
-        onTap: () => Navigator.pushNamed(context, path),
-        leading: leadingIcon,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 35.0),
+      child: Column(children: <Widget>[
+        ListTile(
+          title: Center(child: Text(title)),
+          onTap: () {
+            if (onClick != null) onClick();
+            if (path != null) Navigator.pushNamed(context, path);
+          },
+          leading: leadingIcon,
+        ),
+        Divider(
+          color: Colors.white,
+        )
+      ]),
     );
   }
 }

@@ -33,7 +33,7 @@ class App extends StatelessWidget {
         '/admin2': (context) =>
             AdminScaffold(body: DummyAdmin2(), title: 'Dummy Screen 2'),
         '/user': (context) =>
-            UserScaffold(body: DummyAdmin1(), title: 'Dummy Screen 1'),
+            UserScaffold(body: DummyAdmin1(), title: 'Dummy Screen 1 (user)'),
         '/login': (context) => LoginScreen(),
       },
     );

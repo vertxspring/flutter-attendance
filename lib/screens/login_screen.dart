@@ -1,7 +1,9 @@
+import 'package:attendance/models/api-response.dart';
+import 'package:attendance/services/login_service.dart';
 import 'package:attendance/widgets/custom_textformfield.dart';
 import 'package:flutter/material.dart';
 
-final _formKey = GlobalKey<FormState>();
+final LoginService loginService = LoginService();
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,6 +11,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -30,13 +36,18 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.only(top: topPadding, left: 50, right: 50),
               child: ListView(children: [
-                CustomTextFormField(validator: _inputValidator),
+                CustomTextFormField(
+                    validator: _inputValidator,
+                    controller: usernameController,
+                    hint: 'Username'),
                 SizedBox(
                   height: 30,
                 ),
                 CustomTextFormField(
                   validator: _inputValidator,
                   obscureText: true,
+                  controller: passwordController,
+                  hint: 'Password',
                 ),
                 SizedBox(
                   height: 30,
@@ -50,13 +61,38 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.indigo,
                       ),
                     ),
-                    onPressed: () => null,
+                    onPressed: () => attemptLogin(),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5))),
               ]),
             )),
       ),
     );
+  }
+
+  Future<void> attemptLogin() async {
+    ApiResponse response = await loginService.getToken(
+        usernameController.text, passwordController.text);
+    switch (response) {
+      case ApiResponse.SUCCESS:
+        {
+          Role role = loginService.role;
+          if (role == Role.ADMIN) {
+            Navigator.of(context).pushNamed('/admin');
+          } else {
+            Navigator.of(context).pushNamed('/user');
+          }
+          break;
+        }
+      case ApiResponse.UNAUTHORIZED:
+        {
+          break;
+        }
+      case ApiResponse.ERROR:
+        {
+          break;
+        }
+    }
   }
 
   String _inputValidator(value) {

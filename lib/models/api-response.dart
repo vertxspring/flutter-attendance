@@ -1,0 +1,1 @@
+enum ApiResponse { UNAUTHORIZED, SUCCESS, ERROR }
