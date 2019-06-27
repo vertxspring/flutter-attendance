@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:attendance/models/api-response.dart';
-import 'package:http/http.dart' as http;
 
+import './networking_service.dart';
 import '../helpers/jwt-parser.dart' as jwtParser;
 
 class LoginService {
+  final NetworkService networkService = NetworkService();
   static final LoginService _loginService = new LoginService._internal();
 
   String _token;
@@ -35,13 +36,12 @@ class LoginService {
   LoginService._internal();
 
   Future<ApiResponse> getToken(String username, String password) async {
-    http.Response response = await http.post(
-        'http://10.0.2.2:8080/token/generate-token',
-        body: json.encode({'username': username, 'password': password}),
-        headers: {'Content-Type': 'application/json'});
+    var response = await networkService.post(
+        'token/generate-token', {'username': username, 'password': password});
 
     if (response.statusCode == 200) {
       _token = json.decode(response.body)['token'];
+      networkService.jwt = _token;
       _isLogged = true;
       if (jwtParser
           .parseJwt(_token)['scopes']

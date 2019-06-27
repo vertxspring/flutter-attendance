@@ -78,9 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
         {
           Role role = loginService.role;
           if (role == Role.ADMIN) {
-            Navigator.of(context).pushNamed('/admin');
+            Navigator.of(context).pushReplacementNamed('/admin');
           } else {
-            Navigator.of(context).pushNamed('/user');
+            Navigator.of(context).pushReplacementNamed('/request-approval');
           }
           break;
         }

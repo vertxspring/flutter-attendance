@@ -6,6 +6,7 @@ import 'screens/admin_screens/dummy_admin1.dart';
 import 'screens/admin_screens/dummy_admin2.dart';
 import 'screens/loading_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/user_screens/request_approval_screen.dart';
 import 'services/login_service.dart';
 
 LoginService loginService = LoginService();
@@ -32,8 +33,8 @@ class App extends StatelessWidget {
             AdminScaffold(body: DummyAdmin1(), title: 'Dummy Screen 1'),
         '/admin2': (context) =>
             AdminScaffold(body: DummyAdmin2(), title: 'Dummy Screen 2'),
-        '/user': (context) =>
-            UserScaffold(body: DummyAdmin1(), title: 'Dummy Screen 1 (user)'),
+        '/request-approval': (context) => UserScaffold(
+            body: RequestApprovalScreen(), title: 'Request Approval'),
         '/login': (context) => LoginScreen(),
       },
     );

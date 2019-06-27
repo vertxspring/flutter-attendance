@@ -37,12 +37,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void checkForLoggedInUser() async {
     User user = await storageService.getLoggedInUser();
     if (user == null)
-      Navigator.of(context).pushNamed("/login");
+      Navigator.of(context).pushReplacementNamed("/login");
     else {
       if (user.role == Role.ADMIN)
-        Navigator.of(context).pushNamed("/admin");
+        Navigator.of(context).pushReplacementNamed("/admin");
       else
-        Navigator.of(context).pushNamed("/user");
+        Navigator.of(context).pushReplacementNamed("/user");
     }
   }
 }

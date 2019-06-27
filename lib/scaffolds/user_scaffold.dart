@@ -10,8 +10,8 @@ class UserScaffold extends StatelessWidget {
 
   final List<DrawerItem> drawerItems = [
     DrawerItem(
-      title: 'Title 1',
-      path: '/user',
+      title: 'Request Approval',
+      path: '/request-approval',
     ),
     DrawerItem(
       title: 'Title 2',
